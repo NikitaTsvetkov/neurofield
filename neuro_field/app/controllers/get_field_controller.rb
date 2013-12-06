@@ -1,0 +1,2 @@
+class GetFieldController < ApplicationController
+end
