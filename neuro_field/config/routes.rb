@@ -6,7 +6,11 @@ NeuroField::Application.routes.draw do
   # root 'welcome#index'
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  get 'init/:x/:y' => 'init_field#init'
+  get 'register/:id' => 'init_field#register'
+  get 'turn/:id/:action' => 'send_action#turn'
+  get 'get_field_state' => 'get_field#field_state'
+  get 'get_player_state/:id' => 'get_field#player_state'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
