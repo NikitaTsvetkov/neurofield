@@ -9,7 +9,8 @@ Class Player
     @dead? = (x > 100)
     @hunger = x if (x >= 0) and ( x <= 100)
   end
-  def initialize
+  def initialize coor_x, coor_y
+    self.coor_x , self.coor_y = coor_x, coor_y
     @hunger = 50
     @fatigue = 50
     @dead? = false
