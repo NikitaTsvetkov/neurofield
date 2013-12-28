@@ -1,3 +1,4 @@
+require player
 class InitFieldController < ApplicationController
   def init x, y
     $x, $y = x, y
@@ -5,6 +6,7 @@ class InitFieldController < ApplicationController
       Array.new(y); 
     end
     $initialized? = true
+    render nothing : true
   end
   def register id
     $neuro_nets = Hash.new unless $neuro_net
@@ -13,6 +15,6 @@ class InitFieldController < ApplicationController
     end while ($field[x][y] != 0 )
     
     $neuro_nets[id] = Player.new(x, y) 
-    
+    render nothing : true
   end
 end
