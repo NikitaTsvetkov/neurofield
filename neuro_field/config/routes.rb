@@ -9,7 +9,7 @@ NeuroField::Application.routes.draw do
   get 'init/:x/:y' => 'init_field#init'
   get 'register/:id' => 'init_field#register'
   get 'turn/:id/:action' => 'send_action#turn'
-  get 'get_field_state' => 'get_field#field_state'
+  get 'get_field_state' => 'get_field#get_field_state'
   get 'get_player_state/:id' => 'get_field#player_state'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

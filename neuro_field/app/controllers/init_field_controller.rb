@@ -1,20 +1,23 @@
-require player
+require 'player'
 class InitFieldController < ApplicationController
-  def init x, y
-    $x, $y = x, y
-    $field = Array.new(x) do |i|
-      Array.new(y); 
+  def init 
+    $neuro_nets = nil
+    $x, $y = params[:x].to_i, params[:y].to_i
+    $field = Array.new($y) do |i|
+      Array.new($x) {|item| 0}; 
     end
-    $initialized? = true
-    render nothing : true
+    $initialized = true
+    render json: [$field, $neuro_nets]
   end
-  def register id
-    $neuro_nets = Hash.new unless $neuro_net
+  def register 
+    id = params[:id].to_i
+    $neuro_nets = Hash.new unless $neuro_nets
     begin
       x, y = Random.rand($x), Random.rand($y)
-    end while ($field[x][y] != 0 )
+    end while ($field[y][x] != 0 )
     
     $neuro_nets[id] = Player.new(x, y) 
-    render nothing : true
+    render json: [$field, $neuro_nets]
+    
   end
 end
