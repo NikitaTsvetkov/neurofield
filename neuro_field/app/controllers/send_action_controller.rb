@@ -1,9 +1,9 @@
 class SendActionController < ApplicationController
   def initialize *args
-    super(&args)
+    super(*args)
   end
   def turn 
-    id, action = params[:id].to_i, params[:action] 
+    id, action = params[:id].to_i, params[:player_action] 
     unless $neuro_nets[id].performed_turn
       if action == 'eat'
 	$field[$neuro_nets[id].coor_x][ $neuro_nets[id].coor_y] = $neuro_nets[id].eat($field[$neuro_nets[id].coor_y][ $neuro_nets[id].coor_x])
@@ -23,8 +23,11 @@ class SendActionController < ApplicationController
       $neuro_nets[id].performed_turn = true
       reset_turn = $neuro_nets.inject(true){|accum, (key, value)| value.performed_turn && accum }
       if reset_turn
-	$neuro_nets.each{ |item| item.performed_turn = false }
+	$neuro_nets.each{ |key, item| item.performed_turn = false }
       end
+      render json: $neuro_nets[id]
+    else
+      render json: "please wait"
     end
   end
 end

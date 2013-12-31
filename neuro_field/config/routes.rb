@@ -8,7 +8,7 @@ NeuroField::Application.routes.draw do
   # Example of regular route:
   get 'init/:x/:y' => 'init_field#init'
   get 'register/:id' => 'init_field#register'
-  get 'turn/:id/:action' => 'send_action#turn'
+  get 'turn/:id/:player_action' => 'send_action#turn'
   get 'get_field_state' => 'get_field#get_field_state'
   get 'get_player_state/:id' => 'get_field#player_state'
 
