@@ -20,6 +20,10 @@ class SendActionController < ApplicationController
       if action == 'down'
 	$neuro_nets[id].coor_y = $neuro_nets[id].coor_y - 1 unless ($neuro_nets[id].coor_y - 1 < 0)
       end
+      if action == 'sleep'
+        $neuro_nets[id].sleep
+      end
+      $neuro_nets[id].turn
       $neuro_nets[id].performed_turn = true
       reset_turn = $neuro_nets.inject(true){|accum, (key, value)| value.performed_turn && accum }
       if reset_turn

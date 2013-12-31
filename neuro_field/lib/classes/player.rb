@@ -17,9 +17,12 @@ class Player
   end
   def eat (cell_content)
     if cell_content == -1
-      self.hunger -= 1
+      self.hunger -= 2
     end
     0
+  end
+  def sleep 
+    self.fatigue -= 2 
   end
   def turn
     self.hunger += 1
