@@ -11,17 +11,17 @@ class InitFieldController < ApplicationController
     render json: [$field, $neuro_nets]
   end
   def register 
-    id = params[:id].to_i
     $lock_nets.synchronize do
-      $neuro_nets = Hash.new unless $neuro_nets
+      $lock_field.synchronize do
+        id = params[:id].to_i
+        state = $field.field_state
+        $neuro_nets = Hash.new unless $neuro_nets
+        begin
+          x, y = Random.rand($x), Random.rand($y)
+        end while (state[y][x] != 0 )
+        $neuro_nets[id] = Player.new(x, y) 
+        render json: [$field, $neuro_nets]
+      end
     end
-    begin
-      x, y = Random.rand($x), Random.rand($y)
-    end while ($field[y][x] != 0 )
-    $lock_nets.synchronize do
-      $neuro_nets[id] = Player.new(x, y) 
-    end
-    render json: [$field, $neuro_nets]
-    
   end
 end
