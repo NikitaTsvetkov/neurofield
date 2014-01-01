@@ -19,7 +19,7 @@ class GetFieldController < ApplicationController
     x , y = $neuro_nets[id].coor_x , $neuro_nets[id].coor_y 
     fs = field_state
     matrix = [[fs.get_element(y + 1, x - 1),fs.get_element(y + 1,x),fs.get_element(y + 1 , x + 1)],
-              [fs.get_element(y, x - 1),fs.get_element(y,x),fs.get_element(y , x + 1)],
+              [fs.get_element(y, x - 1),$field[y][x],fs.get_element(y , x + 1)],
               [fs.get_element(y - 1, x - 1),fs.get_element(y - 1,x),fs.get_element(y - 1 , x + 1)]];
     matrix.each_with_index{|item|}
     state = [$neuro_nets[id], matrix]
