@@ -14,6 +14,7 @@ class Player
     @hunger = 50
     @fatigue = 50
     @dead = false
+    @performed_turn = false
   end
   def eat (cell_content)
     if cell_content == -1

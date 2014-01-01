@@ -1,11 +1,10 @@
 require 'player'
+require 'field'
 class InitFieldController < ApplicationController
   def init 
     $neuro_nets = nil
     $x, $y = params[:x].to_i, params[:y].to_i
-    $field = Array.new($y) do |i|
-      Array.new($x) {|item| 0}; 
-    end
+    $field = Field.new $x, $y, nil
     $initialized = true
     render json: [$field, $neuro_nets]
   end

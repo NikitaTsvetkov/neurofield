@@ -27,11 +27,13 @@ class SendActionController < ApplicationController
       $neuro_nets[id].performed_turn = true
       reset_turn = $neuro_nets.inject(true){|accum, (key, value)| value.performed_turn && accum }
       if reset_turn
-	$neuro_nets.each{ |key, item| item.performed_turn = false }
+        $field.place_food_additional
+        $neuro_nets.each{ |key, item| item.performed_turn = false }
       end
       render json: $neuro_nets[id]
     else
       render json: "please wait"
     end
   end
+  
 end
