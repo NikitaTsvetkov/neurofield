@@ -4,10 +4,9 @@ class SendActionController < ApplicationController
   end
   def turn 
     id, action = params[:id].to_i, params[:player_action]
-    
-    unless $neuro_nets[id].performed_turn
-      $lock_nets.synchronize do
-        $lock_field.synchronize do 
+    $lock_nets.synchronize do
+      $lock_field.synchronize do 
+        unless $neuro_nets[id].performed_turn
           if action == 'eat'
             $field[$neuro_nets[id].coor_y][ $neuro_nets[id].coor_x] = $neuro_nets[id].eat($field[$neuro_nets[id].coor_y][ $neuro_nets[id].coor_x])
           end
@@ -33,11 +32,12 @@ class SendActionController < ApplicationController
             $field.place_food_additional
             $neuro_nets.each{ |key, item| item.performed_turn = false }
           end
+          
+          render json: $neuro_nets[id]
+        else
+          render json: "please wait"
         end
       end
-      render json: $neuro_nets[id]
-    else
-      render json: "please wait"
     end
   end
   
